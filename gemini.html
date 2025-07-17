@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteout Survival: SVS Final Push Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Narrative Plan:
+    1.  Hook/Briefing: Set the stage for the final 2 days of SVS.
+    2.  Asset Overview: Display current token status as a baseline.
+    3.  Thursday Analysis: Analyze token spending for Thursday's SVS points. Use a bar chart to show efficiency (Points per Token).
+    4.  Friday Analysis: Repeat the analysis for Friday's SVS points, which has more options. Use a second bar chart.
+    5.  Strategic Flow: Provide a clear, step-by-step decision flowchart (using HTML/CSS) to guide spending based on goals (max points vs. balanced growth).
+    6.  Final Recommendations: Give a concise, prioritized shopping list.
+
+    Visualization Choices (NO SVG/Mermaid JS Confirmed):
+    -   Data Point: SVS Point Efficiency per Token (Thursday). Goal: Compare. Visualization: Bar Chart. Justification: Bar charts are ideal for comparing discrete values across different categories (items). Implemented with Chart.js (Canvas).
+    -   Data Point: SVS Point Efficiency per Token (Friday). Goal: Compare. Visualization: Bar Chart. Justification: Same as above, perfect for comparing the wider variety of items available for Friday's tasks. Implemented with Chart.js (Canvas).
+    -   Data Point: Strategic Decision Process. Goal: Organize. Visualization: Flowchart. Justification: A flowchart simplifies a multi-step decision process, making the optimal strategy easy to follow. Implemented with structured HTML divs and Tailwind CSS for styling (borders, backgrounds, flexbox), completely avoiding SVG and Mermaid JS.
+    -   Data Point: Key Stats (Tokens). Goal: Inform. Visualization: Big Number Text. Justification: Highlighting key numbers draws immediate attention. Implemented with large, bold text.
+    -   Data Point: Raw Data Tables. Goal: Organize. Visualization: HTML Table. Justification: Tables provide precise, detailed data for users who want to dig deeper. Implemented with standard `<table>` elements styled with Tailwind.
+
+    Color Palette: Brilliant Blues (#00A1E4, #0077B6, #005082, #023E8A, #03045E)
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transform: translateY(-2px);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .flowchart-node {
+            border: 2px solid #0077B6;
+            background-color: #ffffff;
+            color: #03045E;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .flowchart-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0;
+            color: #0077B6;
+            font-weight: 900;
+            font-size: 2rem;
+        }
+        .flowchart-label {
+            background-color: #00A1E4;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#03045E]">Whiteout Survival</h1>
+            <p class="text-xl md:text-2xl font-semibold text-[#005082]">SVS Final 48-Hour Offensive</p>
+        </header>
+
+        <section id="briefing" class="card">
+            <h2 class="text-2xl font-bold text-[#023E8A] mb-4 border-b-2 border-[#00A1E4] pb-2">Mission Briefing</h2>
+            <p class="text-lg">Operative, we are in the final two days of the State vs. State conflict. This is our last chance to surge ahead. Your objective is to strategically deploy your Silverfrost and Enigma tokens to maximize SVS points on Thursday and Friday. This guide provides the tactical analysis to ensure every token spent yields maximum strategic advantage.</p>
+        </section>
+
+        <section id="inventory" class="card">
+            <h2 class="text-2xl font-bold text-[#023E8A] mb-4 border-b-2 border-[#00A1E4] pb-2">Asset Inventory</h2>
+            <p class="mb-6">Here is your current tactical supply situation. We must allocate these resources with precision.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-lg font-semibold text-[#0077B6]">Silverfrost Tokens</p>
+                    <p class="text-5xl font-extrabold text-[#023E8A]">400</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p class="text-lg font-semibold text-[#0077B6]">Enigma Tokens</p>
+                    <p class="text-5xl font-extrabold text-[#023E8A]">300</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section id="thursday" class="card lg:col-span-2">
+                <h2 class="text-2xl font-bold text-[#023E8A] mb-4 border-b-2 border-[#00A1E4] pb-2">Phase 1: Thursday's Gear & Troop Offensive</h2>
+                <p class="mb-6">Thursday's objectives focus on Gear and Troops. The most efficient use of tokens is acquiring resources that provide the highest point return. Analysis indicates a clear winner for token-to-point conversion.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-[#005082] mb-4">SVS Point Efficiency (Thursday)</h3>
+                        <div class="chart-container">
+                            <canvas id="thursdayChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-[#005082] mb-4">Tactical Data</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead class="bg-[#0077B6] text-white">
+                                    <tr>
+                                        <th class="py-2 px-4 text-left">Item</th>
+                                        <th class="py-2 px-4 text-left">Source</th>
+                                        <th class="py-2 px-4 text-right">Points / Token</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b">
+                                        <td class="py-2 px-4 font-semibold">Mithril</td>
+                                        <td class="py-2 px-4">Silverfrost</td>
+                                        <td class="py-2 px-4 text-right font-bold text-green-600">3,600</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="py-2 px-4 font-semibold">Essence Stones</td>
+                                        <td class="py-2 px-4">Silverfrost</td>
+                                        <td class="py-2 px-4 text-right font-bold">1,200</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-6 p-4 bg-green-50 text-green-800 rounded-lg">
+                            <p><span class="font-bold">Primary Directive:</span> Acquiring <span class="font-bold">Mithril</span> from the Silverfrost shop offers unparalleled efficiency for Thursday's SVS tasks. Each token spent yields 3,600 points, three times more than the next best option.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="friday" class="card lg:col-span-2">
+                <h2 class="text-2xl font-bold text-[#023E8A] mb-4 border-b-2 border-[#00A1E4] pb-2">Phase 2: Friday's Finisher's Gambit</h2>
+                <p class="mb-6">Friday opens up numerous new scoring opportunities, including Pets, Building, Research, and Speedups. Our analysis identifies the most efficient ways to convert both token types into a massive point surge.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-[#005082] mb-4">SVS Point Efficiency (Friday)</h3>
+                         <div class="chart-container">
+                            <canvas id="fridayChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-[#005082] mb-4">Tactical Data</h3>
+                        <div class="overflow-x-auto">
+                           <table class="min-w-full bg-white">
+                                <thead class="bg-[#0077B6] text-white">
+                                    <tr>
+                                        <th class="py-2 px-4 text-left">Item</th>
+                                        <th class="py-2 px-4 text-left">Source</th>
+                                        <th class="py-2 px-4 text-right">Points / Token</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">Mithril</td><td class="py-2 px-4">Silverfrost</td><td class="py-2 px-4 text-right font-bold text-green-600">3,600</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">1h General Speedup</td><td class="py-2 px-4">Enigma</td><td class="py-2 px-4 text-right font-bold text-green-500">1,800</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">Fire Crystal (20 pack)</td><td class="py-2 px-4">Silverfrost</td><td class="py-2 px-4 text-right font-bold">1,333</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">1h General Speedup</td><td class="py-2 px-4">Silverfrost</td><td class="py-2 px-4 text-right font-bold">1,260</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">Essence Stones</td><td class="py-2 px-4">Silverfrost</td><td class="py-2 px-4 text-right font-bold">1,200</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">Fire Crystal (single)</td><td class="py-2 px-4">Enigma</td><td class="py-2 px-4 text-right font-bold">1,000</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">Advanced Wild Mark</td><td class="py-2 px-4">Enigma</td><td class="py-2 px-4 text-right font-bold">750</td></tr>
+                                    <tr class="border-b"><td class="py-2 px-4 font-semibold">5min General Speedup</td><td class="py-2 px-4">Silverfrost</td><td class="py-2 px-4 text-right font-bold">750</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div class="mt-6 p-4 bg-yellow-50 text-yellow-800 rounded-lg">
+                            <p><span class="font-bold">Secondary Directive:</span> Mithril remains the top priority. Following that, Enigma's <span class="font-bold">1h General Speedups</span> offer the second-highest return, providing a huge boost for Friday's speedup-related tasks.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="strategy" class="card">
+            <h2 class="text-2xl font-bold text-[#023E8A] mb-4 border-b-2 border-[#00A1E4] pb-2">Strategic Acquisition Flow</h2>
+            <p class="mb-6">Follow this protocol to balance immediate SVS point gain with long-term power progression. Execute these steps in order for optimal results.</p>
+            
+            <div class="space-y-4">
+                <div class="flowchart-node">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="flowchart-label mr-2">Step 1</span>
+                        <span>Priority SVS Point Maximization</span>
+                    </div>
+                    <p class="font-normal">Purchase all available <span class="font-extrabold">Mithril (25 limit)</span> from the Silverfrost shop. <br/>(Cost: 1000 Silverfrost Tokens)</p>
+                </div>
+                
+                <div class="flowchart-arrow">↓</div>
+
+                <div class="flowchart-node">
+                    <div class="flex items-center justify-center mb-2">
+                         <span class="flowchart-label mr-2">Step 2</span>
+                        <span>High-Efficiency Speedups</span>
+                    </div>
+                    <p class="font-normal">Purchase all available <span class="font-extrabold">1h General Speedups (25 limit)</span> from the Enigma shop. <br/>(Cost: 25 Enigma Tokens)</p>
+                </div>
+
+                <div class="flowchart-arrow">↓</div>
+
+                <div class="flowchart-node">
+                    <div class="flex items-center justify-center mb-2">
+                         <span class="flowchart-label mr-2">Step 3</span>
+                        <span>Secondary SVS Point Resources</span>
+                    </div>
+                    <p class="font-normal">Purchase the <span class="font-extrabold">Fire Crystal (20 pack)</span> from the Silverfrost shop. <br/>(Cost: 30 Silverfrost Tokens)</p>
+                </div>
+                
+                <div class="flowchart-arrow">↓</div>
+
+                <div class="flowchart-node bg-[#023E8A] text-white border-[#03045E]">
+                    <div class="flex items-center justify-center mb-2">
+                         <span class="flowchart-label bg-white text-[#03045E] mr-2">Final Step</span>
+                        <span>Long-Term Power Growth</span>
+                    </div>
+                    <p class="font-normal">With remaining tokens, secure high-value assets for permanent power gains. Prioritize these items:</p>
+                    <ul class="list-disc list-inside text-left mt-2 font-normal">
+                        <li><span class="font-bold">Custom Mythic Hero Gear</span> (Silverfrost)</li>
+                        <li><span class="font-bold">Mythic General Hero Shard</span> (Enigma)</li>
+                        <li><span class="font-bold">Advanced Wild Mark</span> (Enigma)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="card bg-[#03045E] text-white">
+            <h2 class="text-2xl font-bold mb-4 border-b-2 border-[#00A1E4] pb-2">Final Recommendations</h2>
+            <p class="text-lg mb-4">Execute this acquisition plan precisely. Use Mithril and Essence Stones on Thursday or Friday. Use Fire Crystals and Speedups on Friday to secure victory.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-[#00A1E4]">Silverfrost Shop Priority:</h3>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>Mithril (up to 25)</li>
+                        <li>Fire Crystal (20 pack)</li>
+                        <li>Essence Stones (single daily reward)</li>
+                        <li>Custom Mythic Hero Gear</li>
+                    </ol>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-[#00A1E4]">Enigma Shop Priority:</h3>
+                    <ol class="list-decimal list-inside mt-2 space-y-1">
+                        <li>1h General Speedup (up to 25)</li>
+                        <li>Mythic General Hero Shard</li>
+                        <li>Advanced Wild Mark</li>
+                        <li>Fire Crystal</li>
+                    </ol>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapLabels(labels, maxLength) {
+            return labels.map(label => {
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            });
+        }
+
+        const tooltipTitleCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        const chartColors = {
+            primary: '#00A1E4',
+            secondary: '#0077B6',
+            accent: '#023E8A',
+            background: 'rgba(0, 161, 228, 0.2)',
+            border: '#00A1E4'
+        };
+
+        const thursdayData = {
+            labels: wrapLabels(['Mithril', 'Essence Stones'], 16),
+            datasets: [{
+                label: 'SVS Points per Token',
+                data: [3600, 1200],
+                backgroundColor: [chartColors.primary, chartColors.secondary],
+                borderColor: [chartColors.border, chartColors.border],
+                borderWidth: 1
+            }]
+        };
+
+        const fridayData = {
+            labels: wrapLabels(['Mithril', '1h General Speedup (Enigma)', 'Fire Crystal (20 pack)', '1h General Speedup (Silverfrost)', 'Essence Stones', 'Fire Crystal (single)', 'Advanced Wild Mark'], 16),
+            datasets: [{
+                label: 'SVS Points per Token',
+                data: [3600, 1800, 1333, 1260, 1200, 1000, 750],
+                backgroundColor: [chartColors.primary, chartColors.secondary, chartColors.accent, chartColors.secondary, chartColors.accent, chartColors.primary, chartColors.secondary],
+                borderColor: chartColors.border,
+                borderWidth: 1
+            }]
+        };
+
+        const chartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { color: '#03045E' },
+                    grid: { color: '#e0e0e0' }
+                },
+                x: {
+                    ticks: { color: '#03045E', maxRotation: 0, minRotation: 0 },
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: {
+                    display: false
+                }
+            }
+        };
+
+        window.onload = function() {
+            const thursdayCtx = document.getElementById('thursdayChart').getContext('2d');
+            new Chart(thursdayCtx, {
+                type: 'bar',
+                data: thursdayData,
+                options: chartOptions
+            });
+
+            const fridayCtx = document.getElementById('fridayChart').getContext('2d');
+            new Chart(fridayCtx, {
+                type: 'bar',
+                data: fridayData,
+                options: chartOptions
+            });
+        };
+    </script>
+</body>
+</html>
