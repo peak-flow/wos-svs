@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Responses Hub - Whiteout Survival SVS Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .prose h1 { @apply text-3xl font-bold text-gray-900 mb-6; }
+        .prose h2 { @apply text-2xl font-bold text-gray-800 mt-8 mb-4; }
+        .prose h3 { @apply text-xl font-semibold text-gray-700 mt-6 mb-3; }
+        .prose h4 { @apply text-lg font-semibold text-gray-700 mt-4 mb-2; }
+        .prose p { @apply mb-4 leading-relaxed; }
+        .prose ul { @apply mb-4 ml-6; }
+        .prose ol { @apply mb-4 ml-6; }
+        .prose li { @apply mb-2; }
+        .prose table { @apply w-full border-collapse border border-gray-300 mb-6; }
+        .prose th { @apply border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold; }
+        .prose td { @apply border border-gray-300 px-4 py-2; }
+        .prose code { @apply bg-gray-100 px-1 py-0.5 rounded text-sm; }
+        .prose blockquote { @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 mb-4; }
+        .prose strong { @apply font-semibold; }
+        .prose em { @apply italic; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto p-6 max-w-6xl" x-data="{ activeResponse: 'question' }">
+        
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">LLM Responses Hub</h1>
+            <p class="text-xl text-gray-600">Whiteout Survival SVS Token Optimization Analysis</p>
+            <p class="text-sm text-gray-500 mt-2">Comparison of responses from Claude, ChatGPT, and Gemini</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-wrap justify-center border-b border-gray-200 mb-8">
+            <button 
+                @click="activeResponse = 'question'" 
+                :class="activeResponse === 'question' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                class="px-6 py-3 border-b-2 font-medium text-sm transition-colors">
+                Original Question
+            </button>
+            <button 
+                @click="activeResponse = 'claude-v1'" 
+                :class="activeResponse === 'claude-v1' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                class="px-6 py-3 border-b-2 font-medium text-sm transition-colors">
+                Claude v1
+            </button>
+            <button 
+                @click="activeResponse = 'claude-v2'" 
+                :class="activeResponse === 'claude-v2' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                class="px-6 py-3 border-b-2 font-medium text-sm transition-colors">
+                Claude v2
+            </button>
+            <button 
+                @click="activeResponse = 'chatgpt'" 
+                :class="activeResponse === 'chatgpt' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                class="px-6 py-3 border-b-2 font-medium text-sm transition-colors">
+                ChatGPT
+            </button>
+            <button 
+                @click="activeResponse = 'gemini-1'" 
+                :class="activeResponse === 'gemini-1' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                class="px-6 py-3 border-b-2 font-medium text-sm transition-colors">
+                Gemini v1
+            </button>
+            <button 
+                @click="activeResponse = 'gemini-2'" 
+                :class="activeResponse === 'gemini-2' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'"
+                class="px-6 py-3 border-b-2 font-medium text-sm transition-colors">
+                Gemini v2
+            </button>
+        </nav>
+
+        <!-- Content Sections -->
+        <main>
+            <!-- Original Question -->
+            <div x-show="activeResponse === 'question'" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <div class="prose max-w-none">
+                    <h1>Whiteout Survival SVS Event Optimization</h1>
+                    
+                    <h2>Background</h2>
+                    <ul>
+                        <li><strong>Game</strong>: Whiteout Survival</li>
+                        <li><strong>Current Day</strong>: Thursday (Day 4 of SVS)</li>
+                        <li><strong>Goal</strong>: Maximize SVS rewards for the last 2 days</li>
+                        <li><strong>Events Running</strong>: SVS, Silverfrost, and Enigma (concurrent)</li>
+                    </ul>
+
+                    <h2>My Token Inventory</h2>
+
+                    <h3>Enigma Event Tokens: 38 Available</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reward</th>
+                                <th>Token Cost</th>
+                                <th>Amount</th>
+                                <th>Owned</th>
+                                <th>Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Mythic General Hero Shard</td><td>10</td><td>1</td><td>38</td><td>4</td></tr>
+                            <tr><td>Enhancement XP Component</td><td>2</td><td>100</td><td>0</td><td>50</td></tr>
+                            <tr><td>Pet Food</td><td>5</td><td>1,000</td><td>70,600</td><td>200</td></tr>
+                            <tr><td>Pet Material Chest</td><td>5</td><td>1</td><td>1</td><td>200</td></tr>
+                            <tr><td>Advanced Wild Mark</td><td>20</td><td>1</td><td>0</td><td>100</td></tr>
+                            <tr><td>Fire Crystal</td><td>2</td><td>1</td><td>190</td><td>53</td></tr>
+                            <tr><td>1h General Speedup</td><td>1</td><td>1</td><td>8</td><td>25</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Silverfrost Event Tokens: (Amount not specified)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Reward</th>
+                                <th>Token Cost</th>
+                                <th>Amount</th>
+                                <th>Owned</th>
+                                <th>Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Fire Crystal</td><td>30</td><td>20</td><td>190</td><td>1</td></tr>
+                            <tr><td>Single Daily Reward Essence Stones</td><td>120</td><td>36</td><td>67</td><td>1</td></tr>
+                            <tr><td>Custom Mythic Hero Gear</td><td>250</td><td>1</td><td>0</td><td>2</td></tr>
+                            <tr><td>Random Hero Gear Chest</td><td>50</td><td>12</td><td>0</td><td>100</td></tr>
+                            <tr><td>Essence Stones</td><td>50</td><td>13</td><td>67</td><td>40</td></tr>
+                            <tr><td>Mithril</td><td>40</td><td>1</td><td>0</td><td>25</td></tr>
+                            <tr><td>Design Plans</td><td>10</td><td>8</td><td>183</td><td>100</td></tr>
+                            <tr><td>Polishing Solution</td><td>10</td><td>40</td><td>881</td><td>100</td></tr>
+                            <tr><td>Hardened Alloy</td><td>10</td><td>4,000</td><td>102,200</td><td>100</td></tr>
+                            <tr><td>Charm Design</td><td>20</td><td>16</td><td>2</td><td>76</td></tr>
+                            <tr><td>Charm Guide</td><td>20</td><td>16</td><td>8</td><td>76</td></tr>
+                            <tr><td>Pet Food</td><td>10</td><td>2,000</td><td>70,600</td><td>50</td></tr>
+                            <tr><td>Pet Material Chest</td><td>20</td><td>3</td><td>1</td><td>50</td></tr>
+                            <tr><td>Advanced Wild Mark</td><td>20</td><td>1</td><td>0</td><td>50</td></tr>
+                            <tr><td>Fire Crystal</td><td>10</td><td>6</td><td>190</td><td>33</td></tr>
+                            <tr><td>1h General Speedup</td><td>10</td><td>7</td><td>0</td><td>50</td></tr>
+                            <tr><td>5min General Speedup</td><td>1</td><td>5</td><td>0</td><td>999</td></tr>
+                            <tr><td>1h Research Speedup</td><td>10</td><td>8</td><td>21</td><td>50</td></tr>
+                            <tr><td>1h Troop Training Speedup</td><td>10</td><td>8</td><td>0</td><td>50</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>SVS Point Values</h2>
+
+                    <h3>Thursday Rewards</h3>
+                    <ul>
+                        <li><strong>Use 1 Hero Gear Essence Stone</strong>: 4,000 points</li>
+                        <li><strong>Use 1 Widget of any Hero Exclusive Gear</strong>: 8,000 points</li>
+                        <li><strong>Use 1 Mithril</strong>: 144,000 points</li>
+                        <li><strong>Troop Training Points</strong>:
+                            <ul>
+                                <li>Lv.1 Troop: 3 points</li>
+                                <li>Lv.2 Troop: 4 points</li>
+                                <li>Lv.3 Troop: 5 points</li>
+                                <li>Lv.4 Troop: 8 points</li>
+                                <li>Lv.5 Troop: 12 points</li>
+                                <li>Lv.6 Troop: 18 points</li>
+                                <li>Lv.7 Troop: 25 points</li>
+                                <li>Lv.8 Troop: 35 points</li>
+                                <li>Lv.9 Troop: 45 points</li>
+                                <li>Lv.10 Troop: 60 points</li>
+                            </ul>
+                        </li>
+                        <li><em>Note: Points from promotion = difference between troop levels</em></li>
+                    </ul>
+
+                    <h3>Friday Rewards</h3>
+                    <ul>
+                        <li><strong>Pet advancement score +1</strong>: 50 points</li>
+                        <li><strong>Use 1 Advanced Wild Mark</strong>: 15,000 points</li>
+                        <li><strong>Use 1 Common Wild Mark</strong>: 1,150 points</li>
+                        <li><strong>Use 1 Mithril</strong>: 144,000 points</li>
+                        <li><strong>Chief Gear score +1 (excluding Charm)</strong>: 36 points</li>
+                        <li><strong>Use 1 Hero Gear Essence Stone</strong>: 4,000 points</li>
+                        <li><strong>Use 1 Widget of any Hero Exclusive Gear</strong>: 8,000 points</li>
+                        <li><strong>Use 1 Fire Crystal</strong>: 2,000 points</li>
+                        <li><strong>Use 1m Speedup (Construction)</strong>: 30 points <em>(Gem speedups excluded)</em></li>
+                        <li><strong>Use 1m Speedup (Research)</strong>: 30 points <em>(Gem speedups excluded)</em></li>
+                        <li><strong>Use 1m Speedup (Troop Training/Promotion)</strong>: 30 points <em>(Gem speedups excluded)</em></li>
+                    </ul>
+
+                    <h3>Chief Gear Score Values</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gear Type</th>
+                                <th>Level Up Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Uncommon</td><td>1,875</td></tr>
+                            <tr><td>Uncommon (1-Star)</td><td>3,000</td></tr>
+                            <tr><td>Rare</td><td>4,500</td></tr>
+                            <tr><td>Rare (1-Star)</td><td>5,100</td></tr>
+                            <tr><td>Rare (2-Star)</td><td>5,440</td></tr>
+                            <tr><td>Rare (3-Star)</td><td>3,230</td></tr>
+                            <tr><td>Epic</td><td>1,125</td></tr>
+                            <tr><td>Epic (1-Star)</td><td>3,230</td></tr>
+                            <tr><td>Epic (2-Star)</td><td>3,225</td></tr>
+                            <tr><td>Epic (3-Star)</td><td>3,225</td></tr>
+                            <tr><td>Epic T1</td><td>3,440</td></tr>
+                            <tr><td>Epic T1 (1-Star)</td><td>3,440</td></tr>
+                            <tr><td>Epic T1 (2-Star)</td><td>4,085</td></tr>
+                            <tr><td>Epic T1 (3-Star)</td><td>4,085</td></tr>
+                            <tr><td>Mythic</td><td>6,250</td></tr>
+                            <tr><td>Mythic (1-Star)</td><td>6,250</td></tr>
+                            <tr><td>Mythic (2-Star)</td><td>6,250</td></tr>
+                            <tr><td>Mythic (3-Star)</td><td>6,250</td></tr>
+                            <tr><td>Mythic T1</td><td>6,250</td></tr>
+                            <tr><td>Mythic T1 (1-Star)</td><td>6,250</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Questions for Optimization</h2>
+
+                    <ol>
+                        <li><strong>Balance</strong>: Can we achieve both high SVS scores AND obtain valuable items?</li>
+                        <li><strong>Priorities</strong>: Any specific focus areas (pet growth, hero gear, speedups, troop training)?</li>
+                        <li><strong>Power Growth</strong>: Bonus if strategy increases overall power, but no specific priorities</li>
+                        <li><strong>Analysis Format</strong>: Would a table comparing point gain per token across rewards be helpful?</li>
+                    </ol>
+
+                    <h2>Additional Context</h2>
+                    <ul>
+                        <li><strong>Primary Goal</strong>: Maximize total SVS points (not just reach 250k fastest)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Claude v1 Response -->
+            <div x-show="activeResponse === 'claude-v1'" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <div class="prose max-w-none">
+                    <h1>SVS Token Optimization Analysis for Thursday & Friday</h1>
+
+                    <p>I'll help you maximize your SVS points while balancing with getting valuable items. Let me first look up some context about Whiteout Survival and these events. Now let me analyze your token options and create a comprehensive strategy for maximizing SVS points while considering valuable items. Based on my analysis, here's your optimal strategy:</p>
+
+                    <h2>Immediate Actions for Maximum Points:</h2>
+
+                    <h3>Thursday (Today):</h3>
+
+                    <ol>
+                        <li><strong>Check if you already have Mithril</strong> - if yes, use it immediately for 144,000 points</li>
+                        <li>Focus on getting Silverfrost tokens to buy:
+                            <ul>
+                                <li>Mithril (40 tokens) - This alone gives you 144,000 points!</li>
+                                <li>Essence Stones packages for tomorrow</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h3>Friday Strategy:</h3>
+
+                    <ol>
+                        <li>Must use:
+                            <ul>
+                                <li>Mithril (144,000 points) - highest single item value</li>
+                                <li>All Fire Crystals you can get (2,000 points each)</li>
+                                <li>Essence Stones (4,000 points each)</li>
+                            </ul>
+                        </li>
+                        <li>Token Shopping List (in priority order):
+                            <ul>
+                                <li>Silverfrost Mithril: 40 tokens → 144,000 points (3,600 pts/token)</li>
+                                <li>Enigma 1h Speedups: 1 token each → 1,800 points/token</li>
+                                <li>Silverfrost Fire Crystals: 10 tokens for 6 → 1,200 pts/token</li>
+                                <li>Silverfrost Speedups: 10 tokens → 1,260-1,440 pts/token</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h2>Quick Decision Guide:</h2>
+
+                    <p><strong>Q: Should I save tokens for rare items?</strong> A: Buy at least one Mithril first (144,000 points). After that, you can consider saving some tokens for Mythic gear or Advanced Wild Marks.</p>
+
+                    <p><strong>Q: What gets me to 250,000 points fastest?</strong> A:</p>
+                    <ul>
+                        <li>1 Mithril (144,000)</li>
+                        <li>30 Fire Crystals (60,000)</li>
+                        <li>12 Essence Stones (48,000) = 252,000 points</li>
+                    </ul>
+
+                    <p><strong>Q: Best bang for buck?</strong> A: Silverfrost Mithril is unbeatable at 3,600 points per token. Nothing else comes close!</p>
+
+                    <p>Would you like me to calculate exactly how many tokens you need to reach a specific point target, or help you plan which items to save for long-term power growth?</p>
+
+                    <h2>Key SVS Point Values</h2>
+                    <ul>
+                        <li><strong>Mithril</strong>: 144,000 points (Best value!)</li>
+                        <li><strong>Advanced Wild Mark</strong>: 15,000 points (Friday only)</li>
+                        <li><strong>Hero Gear Essence Stone</strong>: 4,000 points</li>
+                        <li><strong>Widget (Hero Exclusive Gear)</strong>: 8,000 points</li>
+                        <li><strong>Fire Crystal</strong>: 2,000 points</li>
+                        <li><strong>Speedups</strong>: 30 points per minute</li>
+                    </ul>
+
+                    <h2>Token Efficiency Analysis</h2>
+
+                    <h3>Enigma Shop (38 tokens available)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Token Cost</th>
+                                <th>Amount</th>
+                                <th>SVS Points</th>
+                                <th>Points/Token</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Fire Crystal</strong></td><td>2</td><td>1</td><td>2,000</td><td><strong>1,000</strong></td><td>🟢 HIGH</td></tr>
+                            <tr><td>Pet Food</td><td>5</td><td>1,000</td><td>0</td><td>0</td><td>❌ Skip</td></tr>
+                            <tr><td>Pet Material Chest</td><td>5</td><td>1</td><td>0</td><td>0</td><td>❌ Skip</td></tr>
+                            <tr><td>Enhancement XP</td><td>2</td><td>100</td><td>0</td><td>0</td><td>❌ Skip</td></tr>
+                            <tr><td>Advanced Wild Mark</td><td>20</td><td>1</td><td>15,000 (Fri)</td><td>750</td><td>🟡 Consider</td></tr>
+                            <tr><td>1h General Speedup</td><td>1</td><td>1</td><td>1,800</td><td>1,800</td><td>🟢 HIGH</td></tr>
+                            <tr><td>Mythic General Shard</td><td>10</td><td>1</td><td>0</td><td>0</td><td>🔵 Save</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Silverfrost Shop</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Token Cost</th>
+                                <th>Amount</th>
+                                <th>SVS Points</th>
+                                <th>Points/Token</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Mithril</strong></td><td>40</td><td>1</td><td>144,000</td><td><strong>3,600</strong></td><td>🟢 BEST!</td></tr>
+                            <tr><td><strong>Essence Stones</strong></td><td>50</td><td>13</td><td>52,000</td><td><strong>1,040</strong></td><td>🟢 HIGH</td></tr>
+                            <tr><td>Fire Crystal</td><td>10</td><td>6</td><td>12,000</td><td>1,200</td><td>🟢 HIGH</td></tr>
+                            <tr><td>5min Speedup</td><td>1</td><td>5</td><td>150</td><td>150</td><td>🟡 OK</td></tr>
+                            <tr><td>1h General Speedup</td><td>10</td><td>7</td><td>12,600</td><td>1,260</td><td>🟢 HIGH</td></tr>
+                            <tr><td>1h Research Speedup</td><td>10</td><td>8</td><td>14,400</td><td>1,440</td><td>🟢 HIGH</td></tr>
+                            <tr><td>1h Training Speedup</td><td>10</td><td>8</td><td>14,400</td><td>1,440</td><td>🟢 HIGH</td></tr>
+                            <tr><td>Advanced Wild Mark</td><td>20</td><td>1</td><td>15,000 (Fri)</td><td>750</td><td>🟡 Consider</td></tr>
+                            <tr><td>Widget/Gear items</td><td>Various</td><td>-</td><td>8,000</td><td>Varies</td><td>🟡 Consider</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Final Recommendations</h2>
+
+                    <h3>Must-Do Actions:</h3>
+                    <ol>
+                        <li><strong>Buy Mithril</strong> from Silverfrost (40 tokens) = 144,000 points</li>
+                        <li><strong>Buy all Fire Crystals</strong> from both shops for Friday</li>
+                        <li><strong>Buy Essence Stone batches</strong> from Silverfrost</li>
+                    </ol>
+
+                    <h3>Token Priority Order:</h3>
+                    <ol>
+                        <li>Silverfrost Mithril (3,600 pts/token)</li>
+                        <li>Enigma 1h Speedups (1,800 pts/token)</li>
+                        <li>Silverfrost Fire Crystals (1,200 pts/token)</li>
+                        <li>Silverfrost Speedups (1,260-1,440 pts/token)</li>
+                        <li>Silverfrost Essence Stones (1,040 pts/token)</li>
+                        <li>Enigma Fire Crystals (1,000 pts/token)</li>
+                    </ol>
+
+                    <h3>Estimated Total Points:</h3>
+                    <ul>
+                        <li>Minimum: ~250,000 points (enough for State Medal)</li>
+                        <li>Maximum: ~400,000+ points (with optimal purchases)</li>
+                    </ul>
+
+                    <h3>Long-term Value Items to Consider:</h3>
+                    <ul>
+                        <li>Save some tokens for Mythic gear/shards if you're close to upgrades</li>
+                        <li>Advanced Wild Marks if working on specific pet upgrades</li>
+                        <li>Design plans/Polishing solutions for gear crafting</li>
+                    </ul>
+
+                    <p>Remember: The 250,000 point threshold gives you a State Medal, so aim for at least that!</p>
+                </div>
+            </div>
+
+            <!-- Claude v2 Response -->
+            <div x-show="activeResponse === 'claude-v2'" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <div class="prose max-w-none">
+                    <h1>SVS Token Optimization Analysis - No Building Requirements</h1>
+
+                    <p><strong>Q:</strong> mithril and fire crystals dont work for me because I dont meet prerequisites, also i dont want to get to 250k fastest i want to get as many total points as possible</p>
+
+                    <p><strong>A:</strong> Ah, that changes everything! Let me recalculate focusing on items you CAN actually use. Since you can't use Mithril or Fire Crystals, here's your optimal strategy to maximize total points:</p>
+
+                    <h2>Best Strategy Without Building Requirements:</h2>
+
+                    <h3>Enigma Tokens (38 available):</h3>
+
+                    <p><strong>Use ALL 38 tokens on 1h General Speedups</strong></p>
+                    <ul>
+                        <li>38 tokens → 38 hours of speedups → <strong>68,400 points</strong></li>
+                        <li>This is your best rate at 1,800 points per token!</li>
+                    </ul>
+
+                    <h3>Silverfrost Priority Order:</h3>
+
+                    <ol>
+                        <li><strong>Essence Stones</strong> (50 tokens for 13 stones)
+                            <ul>
+                                <li>Each batch = 52,000 points (4,000 × 13)</li>
+                                <li>Rate: 1,040 points/token</li>
+                                <li>Buy as many batches as possible!</li>
+                            </ul>
+                        </li>
+                        <li><strong>All Speedup Types</strong> - Buy them ALL:
+                            <ul>
+                                <li>1h Training (10 tokens): 8 hours = 14,400 points</li>
+                                <li>1h Research (10 tokens): 8 hours = 14,400 points</li>
+                                <li>1h General (10 tokens): 7 hours = 12,600 points</li>
+                                <li>Total: 30 tokens for 41,400 points</li>
+                            </ul>
+                        </li>
+                        <li><strong>Advanced Wild Marks</strong> (20 tokens each)
+                            <ul>
+                                <li>15,000 points each (Friday only!)</li>
+                                <li>Worth it if you have tokens left</li>
+                            </ul>
+                        </li>
+                        <li><strong>5-minute Speedups</strong> as filler (1 token for 5)
+                            <ul>
+                                <li>Only 150 points/token, but better than nothing</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h3>Additional Point Sources:</h3>
+
+                    <p><strong>Thursday & Friday:</strong></p>
+                    <ul>
+                        <li>Train troops continuously (Lv10 = 60 pts each)</li>
+                        <li>Use any Essence Stones you already have (4,000 pts each)</li>
+                        <li>Use any Widgets you have (8,000 pts each)</li>
+                    </ul>
+
+                    <p><strong>Friday Only:</strong></p>
+                    <ul>
+                        <li>Pet advancement (50 pts per score increase)</li>
+                        <li>Chief Gear upgrades (36 pts per score increase)</li>
+                        <li>Use Advanced Wild Marks (15,000 pts each!)</li>
+                    </ul>
+
+                    <h3>Your Path to Maximum Points:</h3>
+
+                    <ol>
+                        <li><strong>Immediate</strong>: Buy all Enigma 1h speedups (68,400 pts)</li>
+                        <li><strong>Next</strong>: Buy Silverfrost Essence Stones batch (52,000 pts)</li>
+                        <li><strong>Then</strong>: Buy all Silverfrost speedup types (41,400 pts)</li>
+                        <li><strong>If tokens remain</strong>: More Essence Stones or Advanced Wild Marks</li>
+                    </ol>
+
+                    <p><strong>Minimum guaranteed points</strong>: ~161,800 (just from speedups and one Essence batch)</p>
+                    <p><strong>With continuous troop training</strong>: Add 20,000-40,000 points</p>
+                    <p><strong>Total realistic estimate</strong>: 200,000-250,000 points</p>
+
+                    <p>The key is that speedups are now your bread and butter - they're consistent, guaranteed points with no RNG or prerequisites!</p>
+
+                    <h2>Realistic Point Estimates</h2>
+
+                    <h3>Conservative Estimate:</h3>
+                    <ul>
+                        <li>Enigma speedups: 68,400</li>
+                        <li>Silverfrost Essence Stones: 52,000</li>
+                        <li>Silverfrost speedups (3 types): 41,400</li>
+                        <li>Troop training: ~20,000</li>
+                        <li><strong>Total: ~181,800 points</strong></li>
+                    </ul>
+
+                    <h3>Optimistic Estimate (with more tokens/items):</h3>
+                    <ul>
+                        <li>All speedups: ~150,000</li>
+                        <li>All Essence Stones: ~100,000</li>
+                        <li>Advanced Wild Marks: 30,000</li>
+                        <li>Troop training: 40,000</li>
+                        <li>Pet/Gear upgrades: 20,000</li>
+                        <li><strong>Total: ~340,000 points</strong></li>
+                    </ul>
+
+                    <h2>Key Tips:</h2>
+                    <ol>
+                        <li><strong>Buy all 1h speedups from Enigma first</strong> (best rate at 1,800/token)</li>
+                        <li><strong>Stock up on Essence Stones</strong> from Silverfrost</li>
+                        <li><strong>Save some tokens for Advanced Wild Marks</strong> if you can use them Friday</li>
+                        <li><strong>Train troops continuously</strong> - it adds up!</li>
+                        <li><strong>Check if Random Hero Gear Chests contain Widgets</strong> - could be worth gambling</li>
+                    </ol>
+
+                    <p>Remember: Without Mithril/Fire Crystals, speedups and Essence Stones are your best point sources!</p>
+                </div>
+            </div>
+
+            <!-- ChatGPT Response -->
+            <div x-show="activeResponse === 'chatgpt'" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <div class="prose max-w-none">
+                    <h1>Maximizing SVS Points (Thursday & Friday) with Enigma and Silverfrost Tokens</h1>
+
+                    <p>To get the most <strong>points per token</strong> during the last two days of the SvS (State of Power) event, we should focus on the event tasks for <strong>Thursday (Hero Development)</strong> and <strong>Friday (Power Boost)</strong> and see which purchasable items convert into the highest SVS points. Below is a comparison of relevant items from the <strong>Silverfrost</strong> and <strong>Enigma</strong> event shops, including their token costs, the SVS points you gain by using them in the event tasks, and the <strong>points-per-token</strong> efficiency. We'll also note if an item is particularly <strong>valuable</strong> for your long-term progression (meaning you might not want to spend it solely for points unless necessary).</p>
+
+                    <h2>Points per Token Comparison Table</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><strong>Item (Event Shop)</strong></th>
+                                <th><strong>Token Cost</strong></th>
+                                <th><strong>SVS Points per Item</strong></th>
+                                <th><strong>Points per Token</strong> (Efficiency)</th>
+                                <th><strong>Notes</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Mithril</strong> (Silverfrost)</td><td>40 per 1</td><td><strong>144,000</strong> points per Mithril (Hero Dev/Power Boost task)¹</td><td><strong>3,600</strong> pts/token (highest)</td><td>Huge points; use first.</td></tr>
+                            <tr><td><strong>1h Speedup</strong> – General (Enigma)</td><td>1 per 1h</td><td><strong>1,800</strong> points per 1h used for build/research/training²</td><td><strong>1,800</strong> pts/token</td><td>Great for any category.</td></tr>
+                            <tr><td><strong>1h Speedup</strong> – Research/Training (Silverfrost)</td><td>10 per 8h</td><td><strong>8 × 1h = 14,400</strong> points per 8h used (at 30 pts/min)</td><td><strong>1,440</strong> pts/token</td><td>Use if more speedups needed after Enigma's.</td></tr>
+                            <tr><td><strong>Fire Crystal</strong> – Bulk Pack (Silverfrost)</td><td>30 per 20</td><td><strong>20 × 2,000 = 40,000</strong> points if all 20 used for building</td><td><strong>1,333</strong> pts/token</td><td>One-time purchase (limit 1); great value.</td></tr>
+                            <tr><td><strong>Hero Gear Essence Stones</strong> – Pack (Silverfrost)</td><td>120 per 36</td><td><strong>36 × 4,000 = 144,000</strong> points if all used</td><td><strong>1,200</strong> pts/token</td><td>One-time purchase (limit 1); good value.</td></tr>
+                            <tr><td><strong>Fire Crystal</strong> – Small Pack (Silverfrost)</td><td>10 per 6</td><td><strong>6 × 2,000 = 12,000</strong> points for 6 crystals</td><td><strong>1,200</strong> pts/token</td><td>Repeatable; use after bulk pack.</td></tr>
+                            <tr><td><strong>Hero Gear Essence Stones</strong> – Small (Silverfrost)</td><td>50 per 13</td><td><strong>13 × 4,000 = 52,000</strong> points if used</td><td><strong>1,040</strong> pts/token</td><td>Repeatable; decent if you need more.</td></tr>
+                            <tr><td><strong>Fire Crystal</strong> (Enigma)</td><td>2 per 1</td><td><strong>2,000</strong> points per crystal used for building</td><td><strong>1,000</strong> pts/token</td><td>Fallback if Silverfrost crystals exhausted.</td></tr>
+                            <tr><td><strong>Advanced Wild Mark</strong> (Enigma)</td><td>20 per 1</td><td><strong>15,000</strong> points per mark used on pets</td><td><strong>750</strong> pts/token</td><td>Big points each, but costly and <strong>rare</strong> – use sparingly.</td></tr>
+                            <tr><td><strong>Custom Mythic Hero Gear</strong> (Silverfrost)</td><td>250 per 1 gear</td><td>~<strong>233,000</strong> points (approx.) if crafted/equipped³</td><td><strong>~932</strong> pts/token</td><td><strong>Very rare</strong> item; huge power boost but moderate efficiency.</td></tr>
+                            <tr><td><strong>Random Hero Gear Chest</strong> (Silverfrost)</td><td>50 per 1 chest</td><td><strong>8,000</strong> points (if it counts as one Widget use) + gear score gains⁴</td><td><strong>~160</strong> pts/token (base)</td><td><strong>Luck-based</strong> gear; not efficient just for points.</td></tr>
+                            <tr><td><strong>Pet Food / Material Chests</strong> (Enigma/Silverfrost)</td><td>5–10 per pack</td><td><strong>Variable</strong> (via pet *score* increases at 50 pts per score)</td><td><strong>Low</strong> (est. <<500 pts/token)</td><td>Use existing stock first; token buy not efficient for points.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Recommendations for Token Spending (Thursday & Friday)</h2>
+
+                    <p>Given the above efficiencies, here's how to <strong>maximize your SVS points</strong> while also being mindful of valuable resources:</p>
+
+                    <ul>
+                        <li><strong>Use What You Already Own First:</strong> Before spending tokens, leverage your current inventory for free points</li>
+                        <li><strong>Priority Buys with Silverfrost Tokens:</strong>
+                            <ol>
+                                <li><strong>Mithril (40 tokens each):</strong> This is your best <strong>bang-for-buck</strong>. If you have enough Silverfrost tokens, buy as many Mithril as you can (up to 25). Each Mithril gives a whopping 144k points in your event.</li>
+                                <li><strong>Fire Crystal Pack (30 tokens for 20):</strong> If available, grab this one-time deal. It yields 20 crystals which translate to 40k points on Building Day.</li>
+                                <li><strong>Hero Gear Essence Stone Pack (120 tokens for 36):</strong> Another one-time buy with good efficiency (~1,200 pts/token).</li>
+                            </ol>
+                        </li>
+                        <li><strong>Priority Buys with Enigma Tokens:</strong>
+                            <ol>
+                                <li><strong>1h General Speedups (1 token each, max 25):</strong> Grab all of these. Using them for construction, research, or training will net 1,800 points per token worth.</li>
+                                <li><strong>Fire Crystals (2 tokens each):</strong> If you run out of Silverfrost crystals or still need more building points.</li>
+                                <li><strong>Advanced Wild Marks (20 tokens each):</strong> These have a relatively <strong>low return (750 pts/token)</strong> and are very scarce.</li>
+                            </ol>
+                        </li>
+                    </ul>
+
+                    <h2>Additional Tips</h2>
+
+                    <ul>
+                        <li><strong>Train Troops with Speedups (Thursday):</strong> Since training troops gives points per troop tier and using speedups gives points as well, you can maximize output by training your highest tier troops.</li>
+                        <li><strong>Balance Thursday vs Friday:</strong> To <strong>maximize SVS rewards</strong>, try to hit the top milestones on both days.</li>
+                        <li><strong>Don't Overspend Rare Items:</strong> While it's tempting to throw everything into SVS for points, remember items like <strong>Advanced Wild Marks</strong> and <strong>Mythic gear</strong> are hard to come by.</li>
+                    </ul>
+
+                    <p>By following the above strategy, you'll get the <strong>maximum SVS points per token spent</strong> while also gaining meaningful progress for your account. Focus on the high-return items (Mithril, speedups, Fire Crystals, Essence Stones) to rack up points efficiently, and use your existing stockpiles before buying more. This balanced approach will help you crush the last two days of the event and <strong>maximize your rewards</strong>. Good luck! 🚀</p>
+                </div>
+            </div>
+
+            <!-- Gemini v1 Response -->
+            <div x-show="activeResponse === 'gemini-1'" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6">
+                    <h3 class="text-blue-800 font-semibold mb-2">📄 View Interactive HTML Response</h3>
+                    <p class="text-blue-700 text-sm mb-3">This response includes interactive charts and visualizations that are best viewed in the original HTML format.</p>
+                    <a href="gemini.html" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <span>Open Gemini v1 Response</span>
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="prose max-w-none">
+                    <h1>Whiteout Survival: SVS Final 48-Hour Offensive</h1>
+                    
+                    <h2>Mission Briefing</h2>
+                    <p>Operative, we are in the final two days of the State vs. State conflict. This is our last chance to surge ahead. Your objective is to strategically deploy your Silverfrost and Enigma tokens to maximize SVS points on Thursday and Friday. This guide provides the tactical analysis to ensure every token spent yields maximum strategic advantage.</p>
+
+                    <h2>Key Findings</h2>
+                    <ul>
+                        <li><strong>Best Overall Value:</strong> Mithril (3,600 Points/Token)</li>
+                        <li><strong>Top Speedup Deal:</strong> 1h General Speedup from Enigma</li>
+                        <li><strong>Primary Directive:</strong> Acquiring Mithril from the Silverfrost shop offers unparalleled efficiency for Thursday's SVS tasks</li>
+                    </ul>
+
+                    <h2>Strategic Acquisition Flow</h2>
+                    <ol>
+                        <li><strong>Step 1:</strong> Purchase all available Mithril (25 limit) from Silverfrost shop (Cost: 1000 tokens)</li>
+                        <li><strong>Step 2:</strong> Purchase all available 1h General Speedups (25 limit) from Enigma shop (Cost: 25 tokens)</li>
+                        <li><strong>Step 3:</strong> Purchase Fire Crystal (20 pack) from Silverfrost shop (Cost: 30 tokens)</li>
+                        <li><strong>Final Step:</strong> Secure high-value assets for permanent power gains</li>
+                    </ol>
+
+                    <h2>Final Recommendations</h2>
+                    <p>Execute this acquisition plan precisely. Use Mithril and Essence Stones on Thursday or Friday. Use Fire Crystals and Speedups on Friday to secure victory.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <h3>Silverfrost Shop Priority:</h3>
+                            <ol>
+                                <li>Mithril (up to 25)</li>
+                                <li>Fire Crystal (20 pack)</li>
+                                <li>Essence Stones (single daily reward)</li>
+                                <li>Custom Mythic Hero Gear</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3>Enigma Shop Priority:</h3>
+                            <ol>
+                                <li>1h General Speedup (up to 25)</li>
+                                <li>Mythic General Hero Shard</li>
+                                <li>Advanced Wild Mark</li>
+                                <li>Fire Crystal</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gemini v2 Response -->
+            <div x-show="activeResponse === 'gemini-2'" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 mb-6">
+                    <h3 class="text-purple-800 font-semibold mb-2">📊 View Interactive Dashboard</h3>
+                    <p class="text-purple-700 text-sm mb-3">This response features an interactive dashboard with sortable tables, filters, and dynamic charts for analyzing token efficiency.</p>
+                    <a href="gemini2.html" target="_blank" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        <span>Open Gemini v2 Dashboard</span>
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="prose max-w-none">
+                    <h1>Whiteout Survival SvS Strategy Dashboard</h1>
+                    
+                    <h2>Strategic Overview</h2>
+                    <p>This dashboard translates the event data into actionable insights. The primary goal is to identify the most efficient use of your Enigma and Silverfrost tokens to maximize your SvS event score.</p>
+
+                    <h2>Key Highlights</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-bold text-blue-800">Best Overall Value</h3>
+                            <p class="text-2xl font-bold text-blue-600 mt-1">Mithril</p>
+                            <p class="text-sm text-gray-500">3,600 Points / Token</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h3 class="font-bold text-green-800">Top Speedup Deal</h3>
+                            <p class="text-2xl font-bold text-green-600 mt-1">1h General Speedup</p>
+                            <p class="text-sm text-gray-500">(from Enigma)</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h3 class="font-bold text-purple-800">Top Long-Term Pick</h3>
+                            <p class="text-2xl font-bold text-purple-600 mt-1">Mythic Hero Gear</p>
+                            <p class="text-sm text-gray-500">and Shards</p>
+                        </div>
+                    </div>
+
+                    <h2>Interactive Features</h2>
+                    <p>The full dashboard includes:</p>
+                    <ul>
+                        <li><strong>Overview Tab:</strong> Top 5 most efficient items with interactive chart</li>
+                        <li><strong>Points Analyzer:</strong> Sortable table with filters for different categories</li>
+                        <li><strong>Daily Strategy:</strong> Specific purchase plans for Thursday and Friday</li>
+                        <li><strong>Long-Term Growth:</strong> Balancing immediate points with account progression</li>
+                    </ul>
+
+                    <h2>Daily Strategy Summary</h2>
+                    
+                    <h3>Thursday: Hero Development</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Shop</th>
+                                <th>Tokens</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Mithril (x25)</td><td>Silverfrost</td><td>1,000</td><td>3,600,000</td></tr>
+                            <tr><td>Daily Essence Stones (x1)</td><td>Silverfrost</td><td>120</td><td>144,000</td></tr>
+                            <tr><td>1h General Speedup (x25)</td><td>Enigma</td><td>25</td><td>45,000</td></tr>
+                            <tr class="font-bold bg-gray-50"><td>Total</td><td></td><td>1,145</td><td>3,789,000</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Friday: Power Boost</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Shop</th>
+                                <th>Tokens</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Adv. Wild Mark (x100)</td><td>Enigma</td><td>2,000</td><td>1,500,000</td></tr>
+                            <tr><td>Fire Crystal (x53)</td><td>Enigma</td><td>106</td><td>106,000</td></tr>
+                            <tr><td>1h General Speedup (x8)</td><td>Enigma</td><td>8</td><td>14,400</td></tr>
+                            <tr class="font-bold bg-gray-50"><td>Total</td><td></td><td>2,114</td><td>1,620,400</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Balancing Gains and Growth</h2>
+                    <p>A successful SvS event isn't just about winning today; it's about strengthening your account for the future. The dashboard provides guidance on:</p>
+                    <ul>
+                        <li>Prioritizing high-value, long-term items</li>
+                        <li>The "hybrid" approach to balance immediate and future gains</li>
+                        <li>Strategic use of Advanced Wild Marks for both points and pet development</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-8 border-t border-gray-200 text-center text-gray-500">
+            <p class="text-sm">
+                LLM Responses Hub - Created for comparing different AI analysis approaches<br>
+                Question asked on: <span class="font-medium">Thursday (Day 4 of SVS Event)</span>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

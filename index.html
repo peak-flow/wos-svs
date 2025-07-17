@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analysis Hub | Gaming Strategy Comparison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .ai-badge {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+        }
+        .analysis-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans" x-data="{ 
+    activeModel: null, 
+    models: [
+        {
+            id: 'claude-sonnet',
+            name: 'Claude Sonnet',
+            company: 'Anthropic',
+            version: 'Version 1',
+            color: 'bg-orange-500',
+            gradient: 'from-orange-400 to-red-500',
+            description: 'Comprehensive analysis with detailed token efficiency calculations',
+            strengths: ['Detailed calculations', 'Risk assessment', 'Strategic planning'],
+            rating: 4.8,
+            responseTime: '15s'
+        },
+        {
+            id: 'claude-refined',
+            name: 'Claude Sonnet',
+            company: 'Anthropic',
+            version: 'Version 2 (Refined)',
+            color: 'bg-orange-600',
+            gradient: 'from-orange-500 to-red-600',
+            description: 'Focused on constraints - no building requirements analysis',
+            strengths: ['Constraint handling', 'Practical solutions', 'Alternative strategies'],
+            rating: 4.9,
+            responseTime: '12s'
+        },
+        {
+            id: 'chatgpt',
+            name: 'ChatGPT',
+            company: 'OpenAI',
+            version: 'GPT-4',
+            color: 'bg-green-500',
+            gradient: 'from-green-400 to-emerald-500',
+            description: 'Structured table-based analysis with clear recommendations',
+            strengths: ['Structured format', 'Clear tables', 'Long-term planning'],
+            rating: 4.7,
+            responseTime: '18s'
+        },
+        {
+            id: 'gemini-tactical',
+            name: 'Gemini Pro',
+            company: 'Google',
+            version: 'Tactical Analysis',
+            color: 'bg-blue-500',
+            gradient: 'from-blue-400 to-indigo-500',
+            description: 'Military-themed presentation with visual charts and data',
+            strengths: ['Visual presentation', 'Charts & graphs', 'Thematic approach'],
+            rating: 4.6,
+            responseTime: '22s'
+        },
+        {
+            id: 'gemini-dashboard',
+            name: 'Gemini Pro',
+            company: 'Google',
+            version: 'Interactive Dashboard',
+            color: 'bg-purple-500',
+            gradient: 'from-purple-400 to-pink-500',
+            description: 'Full interactive dashboard with sorting and filtering',
+            strengths: ['Interactive features', 'Data filtering', 'User experience'],
+            rating: 4.8,
+            responseTime: '28s'
+        }
+    ]
+}">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <span class="ml-3 text-xl font-bold text-gray-900">AI Analysis Hub</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">Gaming Strategy Comparison</span>
+                    <div class="ai-badge text-white px-3 py-1 rounded-full text-xs font-semibold">
+                        5 AI Models Tested
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-slide-up">
+                    Whiteout Survival
+                    <span class="block text-blue-200">SVS Strategy Analysis</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto animate-fade-in">
+                    Compare how 5 different AI models analyze the same gaming optimization challenge
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                        📊 Token Efficiency Analysis
+                    </div>
+                    <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                        🎯 Strategic Planning
+                    </div>
+                    <div class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                        ⚡ Real-time Comparison
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Problem Statement -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">The Challenge</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        A Whiteout Survival player needs to optimize their token spending strategy for the final 2 days of an SVS (State vs State) event. 
+                        With limited Enigma (38 tokens) and Silverfrost tokens available, they must maximize SVS points while balancing long-term account growth.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Key Constraints</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Thursday: Hero Development focus</li>
+                                <li>• Friday: Power Boost opportunities</li>
+                                <li>• Multiple concurrent events</li>
+                                <li>• Building prerequisites limitations</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">Success Metrics</h3>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Maximum total SVS points</li>
+                                <li>• Efficient token utilization</li>
+                                <li>• Long-term power growth</li>
+                                <li>• Strategic flexibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Model Cards -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">AI Model Comparison</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <template x-for="model in models" :key="model.id">
+                    <div class="bg-white rounded-2xl shadow-lg card-hover cursor-pointer overflow-hidden" 
+                         @click="activeModel = model">
+                        <div class="h-32 bg-gradient-to-r" :class="model.gradient"></div>
+                        <div class="p-6 -mt-8 relative">
+                            <div class="flex items-center justify-between mb-4">
+                                <div :class="model.color" class="w-16 h-16 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                    <span x-text="model.name.split(' ')[0].charAt(0)"></span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="flex items-center text-yellow-400">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                        <span class="ml-1 text-sm font-semibold" x-text="model.rating"></span>
+                                    </div>
+                                    <div class="text-xs text-gray-500" x-text="model.responseTime"></div>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-1" x-text="model.name"></h3>
+                            <p class="text-sm text-gray-500 mb-3">
+                                <span x-text="model.company"></span> • <span x-text="model.version"></span>
+                            </p>
+                            <p class="text-gray-600 text-sm mb-4 leading-relaxed" x-text="model.description"></p>
+                            <div class="space-y-2">
+                                <template x-for="strength in model.strengths" :key="strength">
+                                    <div class="flex items-center text-xs">
+                                        <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                                        <span class="text-gray-600" x-text="strength"></span>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100">
+                                <button class="w-full bg-gray-900 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors">
+                                    View Analysis
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Modal -->
+    <div x-show="activeModel" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+         @click.self="activeModel = null">
+        
+        <div x-show="activeModel"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div x-show="activeModel" :class="activeModel?.color" class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold shadow-lg">
+                            <span x-text="activeModel?.name.split(' ')[0].charAt(0)"></span>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold" x-text="activeModel?.name + ' ' + activeModel?.version"></h3>
+                            <p class="text-gray-300" x-text="activeModel?.company"></p>
+                        </div>
+                    </div>
+                    <button @click="activeModel = null" class="text-gray-300 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="analysis-content p-6">
+                <!-- Claude Sonnet v1 -->
+                <div x-show="activeModel?.id === 'claude-sonnet'" class="space-y-6">
+                    <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+                        <h4 class="font-semibold text-orange-800 mb-2">Key Insight</h4>
+                        <p class="text-orange-700">Mithril offers unbeatable efficiency at 3,600 points per token - three times better than alternatives.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-gray-800">Top Recommendations</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <span class="font-medium text-green-800">Silverfrost Mithril</span>
+                                    <span class="text-green-600 font-bold">3,600 pts/token</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <span class="font-medium text-blue-800">Enigma 1h Speedups</span>
+                                    <span class="text-blue-600 font-bold">1,800 pts/token</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                    <span class="font-medium text-purple-800">Fire Crystals</span>
+                                    <span class="text-purple-600 font-bold">1,000-1,200 pts/token</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-gray-800">Strategic Approach</h4>
+                            <ol class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5">1</span>
+                                    <span>Buy Mithril first for maximum efficiency</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5">2</span>
+                                    <span>Use existing inventory before purchasing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5">3</span>
+                                    <span>Balance points with long-term growth</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-800">Point Projections</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600">250K+</div>
+                                <div class="text-sm text-gray-600">Minimum Points</div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-blue-600">400K+</div>
+                                <div class="text-sm text-gray-600">Maximum Points</div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-purple-600">144K</div>
+                                <div class="text-sm text-gray-600">Per Mithril</div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-orange-600">25</div>
+                                <div class="text-sm text-gray-600">Mithril Limit</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Claude Sonnet v2 -->
+                <div x-show="activeModel?.id === 'claude-refined'" class="space-y-6">
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+                        <h4 class="font-semibold text-red-800 mb-2">Constraint-Focused Analysis</h4>
+                        <p class="text-red-700">Adapted strategy for players who cannot use Mithril or Fire Crystals due to building prerequisites.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-gray-800">Alternative Strategy</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <span class="font-medium text-green-800">1h General Speedups</span>
+                                    <span class="text-green-600 font-bold">1,800 pts/token</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <span class="font-medium text-blue-800">Essence Stones</span>
+                                    <span class="text-blue-600 font-bold">1,040 pts/token</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                    <span class="font-medium text-purple-800">Advanced Wild Marks</span>
+                                    <span class="text-purple-600 font-bold">750 pts/token</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-gray-800">Realistic Estimates</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Conservative:</span>
+                                    <span class="font-bold text-green-600">181,800 pts</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">With troop training:</span>
+                                    <span class="font-bold text-blue-600">220,000 pts</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Optimistic:</span>
+                                    <span class="font-bold text-purple-600">340,000 pts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-800">Token Allocation Plan</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg border">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+                                    <div>
+                                        <div class="font-medium">All Enigma 1h Speedups</div>
+                                        <div class="text-sm text-gray-500">38 tokens → 68,400 points</div>
+                                    </div>
+                                </div>
+                                <div class="text-green-600 font-bold">Best Rate</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg border">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+                                    <div>
+                                        <div class="font-medium">Silverfrost Essence Stones</div>
+                                        <div class="text-sm text-gray-500">50 tokens → 52,000 points</div>
+                                    </div>
+                                </div>
+                                <div class="text-blue-600 font-bold">Solid Value</div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-white rounded-lg border">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+                                    <div>
+                                        <div class="font-medium">All Speedup Types</div>
+                                        <div class="text-sm text-gray-500">30 tokens → 41,400 points</div>
+                                    </div>
+                                </div>
+                                <div class="text-purple-600 font-bold">Consistent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ChatGPT -->
+                <div x-show="activeModel?.id === 'chatgpt'" class="space-y-6">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">Comprehensive Table Analysis</h4>
+                        <p class="text-green-700">Detailed points-per-token comparison with clear efficiency rankings and strategic guidance.</p>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <div class="bg-gray-50 px-6 py-4 border-b">
+                            <h4 class="text-lg font-semibold text-gray-800">Top Efficiency Rankings</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-200">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold">🥇</div>
+                                        <div>
+                                            <div class="font-bold text-gray-800">Mithril (Silverfrost)</div>
+                                            <div class="text-sm text-gray-600">40 tokens per item</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-2xl font-bold text-green-600">3,600</div>
+                                        <div class="text-sm text-gray-500">pts/token</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold">🥈</div>
+                                        <div>
+                                            <div class="font-bold text-gray-800">1h Speedup (Enigma)</div>
+                                            <div class="text-sm text-gray-600">1 token per hour</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-2xl font-bold text-blue-600">1,800</div>
+                                        <div class="text-sm text-gray-500">pts/token</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg border border-orange-200">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center text-white font-bold">🥉</div>
+                                        <div>
+                                            <div class="font-bold text-gray-800">Research/Training Speedups</div>
+                                            <div class="text-sm text-gray-600">10 tokens per 8 hours</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-2xl font-bold text-purple-600">1,440</div>
+                                        <div class="text-sm text-gray-500">pts/token</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-gray-800">Strategic Phases</h4>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
+                                    <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+                                    <div>
+                                        <div class="font-medium">Use Existing Inventory</div>
+                                        <div class="text-gray-600">Leverage current resources first</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+                                    <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">2</div>
+                                    <div>
+                                        <div class="font-medium">High-Efficiency Purchases</div>
+                                        <div class="text-gray-600">Focus on Mithril and speedups</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+                                    <div>
+                                        <div class="font-medium">Long-term Investments</div>
+                                        <div class="text-gray-600">Balance with rare items</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-xl p-6">
+                            <h4 class="text-lg font-semibold mb-4 text-gray-800">Key Insights</h4>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
+                                    <span class="text-gray-700">Custom Mythic Hero Gear provides huge power boost despite moderate token efficiency</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
+                                    <span class="text-gray-700">Random Hero Gear Chests are luck-based and not efficient for points</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
+                                    <span class="text-gray-700">Pet items have low point efficiency but provide long-term value</span>
+                                </div>
+                                <div class="flex items-start space-x-2">
+                                    <div class="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                                    <span class="text-gray-700">Troop training with speedups creates double-dip opportunities</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gemini Tactical -->
+                <div x-show="activeModel?.id === 'gemini-tactical'" class="space-y-6">
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">Military-Themed Analysis</h4>
+                        <p class="text-blue-700">Strategic offensive planning with visual charts and tactical acquisition flow.</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-900 to-purple-900 text-white rounded-xl p-6">
+                        <h4 class="text-xl font-bold mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                            </svg>
+                            Mission: SVS Final 48-Hour Offensive
+                        </h4>
+                        <p class="text-blue-100">Deploy Silverfrost and Enigma tokens strategically to maximize SVS points and ensure strategic advantage.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                            <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-bold text-gray-800 mb-2">Phase 1: Thursday</h5>
+                            <p class="text-sm text-gray-600">Gear & Troop Offensive</p>
+                            <div class="mt-3 text-2xl font-bold text-blue-600">Mithril Priority</div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-bold text-gray-800 mb-2">Phase 2: Friday</h5>
+                            <p class="text-sm text-gray-600">Finisher's Gambit</p>
+                            <div class="mt-3 text-2xl font-bold text-green-600">Multi-Category</div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-xl p-6 text-center">
+                            <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-bold text-gray-800 mb-2">Final Step</h5>
+                            <p class="text-sm text-gray-600">Long-term Power</p>
+                            <div class="mt-3 text-2xl font-bold text-purple-600">Growth Assets</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-xl p-6">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-800">Tactical Data Analysis</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-medium text-gray-700 mb-3">Silverfrost Shop Priority</h5>
+                                <ol class="space-y-2 text-sm">
+                                    <li class="flex items-center">
+                                        <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs mr-3">1</span>
+                                        <span>Mithril (up to 25)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="w-6 h-6 bg-blue-400 text-white rounded-full flex items-center justify-center text-xs mr-3">2</span>
+                                        <span>Fire Crystal (20 pack)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="w-6 h-6 bg-blue-300 text-white rounded-full flex items-center justify-center text-xs mr-3">3</span>
+                                        <span>Essence Stones (single daily reward)</span>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-gray-700 mb-3">Enigma Shop Priority</h5>
+                                <ol class="space-y-2 text-sm">
+                                    <li class="flex items-center">
+                                        <span class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs mr-3">1</span>
+                                        <span>1h General Speedup (up to 25)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="w-6 h-6 bg-green-400 text-white rounded-full flex items-center justify-center text-xs mr-3">2</span>
+                                        <span>Mythic General Hero Shard</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <span class="w-6 h-6 bg-green-300 text-white rounded-full flex items-center justify-center text-xs mr-3">3</span>
+                                        <span>Advanced Wild Mark</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="text-center">
+                            <button onclick="window.open('gemini.html', '_blank')" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+                                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-1a1 1 0 10-2 0v1H5V7h1a1 1 0 000-2H5z"/>
+                                </svg>
+                                View Interactive Charts & Analysis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gemini Dashboard -->
+                <div x-show="activeModel?.id === 'gemini-dashboard'" class="space-y-6">
+                    <div class="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+                        <h4 class="font-semibold text-purple-800 mb-2">Interactive Dashboard Experience</h4>
+                        <p class="text-purple-700">Full-featured web application with sortable tables, filters, and dynamic visualizations.</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl text-center">
+                            <div class="text-3xl font-bold">📊</div>
+                            <div class="mt-2 text-sm font-medium">Interactive Charts</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl text-center">
+                            <div class="text-3xl font-bold">🔍</div>
+                            <div class="mt-2 text-sm font-medium">Data Filtering</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-xl text-center">
+                            <div class="text-3xl font-bold">📋</div>
+                            <div class="mt-2 text-sm font-medium">Sortable Tables</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-pink-500 to-pink-600 text-white p-6 rounded-xl text-center">
+                            <div class="text-3xl font-bold">📱</div>
+                            <div class="mt-2 text-sm font-medium">Responsive Design</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6">
+                            <h4 class="text-xl font-bold">Dashboard Features</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium text-gray-800">Overview Dashboard</h5>
+                                            <p class="text-sm text-gray-600">At-a-glance insights with top 5 efficiency chart</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium text-gray-800">Points Analyzer</h5>
+                                            <p class="text-sm text-gray-600">Interactive table with sorting and filtering</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start space-x-3">
+                                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 001 1h6a1 1 0 001-1V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2.5 7a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm2.5 2a.5.5 0 10-1 0 .5.5 0 001 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-medium text-gray-800">Daily Strategy</h5>
+                                            <p class="text-sm text-gray-600">Tabbed Thursday/Friday purchase plans</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <h5 class="font-medium text-gray-800 mb-2">Filter Options</h5>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">All Items</span>
+                                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Thursday & Friday</span>
+                                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Friday Only</span>
+                                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Long-Term Growth</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50 p-4 rounded-lg">
+                                        <h5 class="font-medium text-gray-800 mb-2">Interactive Elements</h5>
+                                        <ul class="text-sm text-gray-600 space-y-1">
+                                            <li>• Click headers to sort data</li>
+                                            <li>• Filter by event categories</li>
+                                            <li>• Dynamic chart updates</li>
+                                            <li>• Responsive mobile design</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 text-center">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-4">Experience the Full Dashboard</h4>
+                        <p class="text-gray-600 mb-6">The interactive dashboard provides hands-on data exploration and decision-making tools.</p>
+                        <button onclick="window.open('gemini2.html', '_blank')" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all inline-flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+                                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-1a1 1 0 10-2 0v1H5V7h1a1 1 0 000-2H5z"/>
+                            </svg>
+                            Launch Interactive Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Summary -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-8 mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8">Analysis Summary</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-400 mb-2">5</div>
+                    <div class="text-gray-300">AI Models Tested</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">3,600</div>
+                    <div class="text-gray-300">Max Points/Token (Mithril)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">400K+</div>
+                    <div class="text-gray-300">Potential SVS Points</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Universal Insights</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">✓</div>
+                        <span class="text-gray-700">Mithril consistently ranked as top efficiency choice across all models</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">✓</div>
+                        <span class="text-gray-700">1h Speedups from Enigma shop universally recommended</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">✓</div>
+                        <span class="text-gray-700">Balance between immediate points and long-term growth emphasized</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">✓</div>
+                        <span class="text-gray-700">Constraint consideration crucial for practical strategies</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Model Strengths</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                        <span class="font-medium text-orange-800">Claude Sonnet</span>
+                        <span class="text-orange-600 text-sm">Detailed Analysis</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <span class="font-medium text-green-800">ChatGPT</span>
+                        <span class="text-green-600 text-sm">Structured Tables</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <span class="font-medium text-blue-800">Gemini Tactical</span>
+                        <span class="text-blue-600 text-sm">Visual Presentation</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                        <span class="font-medium text-purple-800">Gemini Dashboard</span>
+                        <span class="text-purple-600 text-sm">Interactive UX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <div class="flex justify-center items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">AI Analysis Hub</span>
+                </div>
+                <p class="text-gray-400 mb-4">
+                    Comparing AI models for gaming strategy optimization
+                </p>
+                <div class="text-sm text-gray-500">
+                    Analysis conducted on Thursday (Day 4 of SVS Event) • Whiteout Survival Strategy Comparison
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
